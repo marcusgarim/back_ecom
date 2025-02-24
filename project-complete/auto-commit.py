@@ -4,15 +4,14 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from datetime import datetime
 
-# Configuração do handler para monitorar mudanças nos arquivos
+# Handler para monitorar mudanças nos arquivos
 class GitAutoCommitHandler(FileSystemEventHandler):
     def on_modified(self, event):
         if event.is_directory:
-            return  # Ignorar mudanças em diretórios
+            return 
         
         print(f"Arquivo modificado: {event.src_path}")
 
-        # Comandos do Git para commit e push automáticos
         subprocess.run(["git", "add", "."], check=True)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         subprocess.run(["git", "commit", "-m", f"auto.commit_atualizado em {timestamp}"], check=True)
@@ -20,10 +19,9 @@ class GitAutoCommitHandler(FileSystemEventHandler):
         
         print("Alterações enviadas para o repositório remoto!")
 
-# Diretório que será monitorado
+# Diretório monitorado
 DIRECTORY_TO_WATCH = "."
 
-# Inicializa o observer
 observer = Observer()
 event_handler = GitAutoCommitHandler()
 observer.schedule(event_handler, DIRECTORY_TO_WATCH, recursive=True)
@@ -40,4 +38,4 @@ except KeyboardInterrupt:
 
 observer.join()
 
-# Teste
+# Teste de execução
