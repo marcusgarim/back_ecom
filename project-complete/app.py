@@ -15,7 +15,10 @@ class Product(db.Model): # Define uma classe que representa uma tabela do banco 
 @app.route('/api/products/add', methods=["POST"]) # Define uma rota para adicionar um produto via método POST
 def add_product():
     data = request.json
-    return data
+    product = Product(name=data["name"], price=data["price"], description=data.get("description", ""))
+    db.session.add(product)
+    db.session.commit()
+    return "Produto cadastrado com sucesso!" 
 
 @app.route('/') # Define a rota
 def hello_world(): # Define uma rota raíz (página inicial) e a função que será executada
@@ -23,5 +26,3 @@ def hello_world(): # Define uma rota raíz (página inicial) e a função que se
 
 if __name__ == "__main__": # Verifica se o script está sendo executado diretamente
     app.run(debug=True) # Inicia o servidor web do Flask em modo de depuração (debug)
-
-# CONTINUA EM 35 MINUTOS
