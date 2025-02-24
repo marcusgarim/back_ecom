@@ -12,6 +12,7 @@ class GitAutoCommitHandler(FileSystemEventHandler):
         
         print(f"Arquivo modificado: {event.src_path}")
 
+        # Comandos do Git para commit e push automáticos
         subprocess.run(["git", "add", "."], check=True)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         subprocess.run(["git", "commit", "-m", f"auto.commit_atualizado em {timestamp}"], check=True)
@@ -37,5 +38,3 @@ except KeyboardInterrupt:
     print("Monitoramento encerrado.")
 
 observer.join()
-
-# Teste de execução
