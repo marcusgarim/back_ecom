@@ -15,6 +15,10 @@ class Product(db.Model):
 # Cria as tabelas no banco de dados se ainda não existirem
 with app.app_context():
     db.create_all()
+# Teste
+@app.route('/')
+def hello_world():
+    return 'Hello, World!'
 
 @app.route('/api/products/add', methods=["POST"])
 def add_product():
@@ -47,10 +51,6 @@ def delete_product(product_id):
     else:
         return jsonify({"message": "Product not found"}), 404
 
-# Teste
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
 
 # Executa a aplicação no modo debug
 if __name__ == "__main__":
