@@ -1,0 +1,25 @@
+# Arquivos do Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Logs e arquivos temporários
+*.log
+*.tmp
+*.swp
+*.bak
+
+# Configurações do VS Code
+.vscode/
+
+# Configurações do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações de ambiente virtual (caso use)
+venv/
+.env
+
+# Scrip de Auto Commit
+script.py
