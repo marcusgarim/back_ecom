@@ -25,15 +25,27 @@ def add_product():
         try:
             price = float(data["price"])  # Converte o preço para número (float)
         except ValueError:
-            return jsonify({"message": "Preço inválido"}), 400
+            return jsonify({"message": "Invalid price"}), 400
 
         product = Product(name=data["name"], price=price, description=data.get("description", ""))
         db.session.add(product)  # Adiciona o produto ao banco de dados
         db.session.commit()  # Confirma a transação no banco
         
-        return jsonify({"message": "Produto adicionado com sucesso"})  # Retorna mensagem de sucesso
+        return jsonify({"message": "Product added successfully"})  # Retorna mensagem de sucesso
     
-    return jsonify({"message": "Dados do produto inválidos"}), 400  # Retorna erro caso os dados sejam inválidos
+    return jsonify({"message": "Failed to add the product - Invalid data"}), 400  # Retorna erro caso os dados sejam inválidos
+
+@app.route('/api/products/delete/<int:product_id>', methods=["DELETE"])
+def delete_product(product_id):
+    product = Product.query.get(product_id) # Recupera o produto da Base de Dados
+
+    # Verifica se o produto existe
+    if product is not None: 
+        db.session.delete(product) # Se o produto existe, ele é removido
+        db.session.commit()
+        return jsonify({"messege": "Product deleted successfully"}) 
+    else:
+        return jsonify({"message": "Product not found"}), 404
 
 # Teste
 @app.route('/')
