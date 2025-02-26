@@ -55,3 +55,6 @@ def delete_product(product_id):
 # Executa a aplicação no modo debug
 if __name__ == "__main__":
     app.run(debug=True) 
+
+
+# Histórico salvo com script de commit
